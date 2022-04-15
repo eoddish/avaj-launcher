@@ -9,31 +9,37 @@ public abstract class Tower {
 		observers.add(flyable);	
 		String output = "Tower says: " + flyable.getType() + 
 			"#" + flyable.getName() + "(" + flyable.getId() + ")" +
-			"registered to weather tower.";
+			" registered to weather tower.";
 		printLine(output);	
 	}
 	public void unregister(Flyable flyable) {
-		observers.remove(flyable);
 		String output = "Tower says: " + flyable.getType() + 
 			"#" + flyable.getName() + "(" + flyable.getId() + ")" +  
-			"unregistered from weather tower.";
+			" unregistered from weather tower.";
 		printLine(output);
+		//observers.remove(flyable);
 	}
 
 	protected void conditionsChanged() {
-		for ( Flyable observer : observers ) {
+		Iterator<Flyable> iterator = observers.iterator();
+		while ( iterator.hasNext() ) {
+			Flyable observer = iterator.next();
 			observer.updateConditions();
-			String output = observer.getType() + 
-				"#" + observer.getName() + "(" + observer.getId() + "): ";
-			printLine(output);
+			if (observer.getCoordinates().getHeight() == 0) {
+				String output = observer.getType() +
+					"#" + observer.getName() + "(" + observer.getId() + "): ";
+				printLine(output + "landing.");
+				observer.getWeatherTower().unregister(observer);
+				iterator.remove();
+				
+			}
 		}
 	}
 
-	private void printLine(String line) {
+	public static void printLine(String line) {
 		try {
 			BufferedWriter out = null;
 			out = new BufferedWriter(new FileWriter("simulation.txt", true));
-
 			out.write(line, 0, line.length());
 			out.newLine();
 			out.close();

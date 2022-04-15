@@ -15,4 +15,20 @@ public abstract class Aircraft {
 		return idCounter;
 	}
 
+	public Coordinates getCoordinates() {
+		return coordinates;
+	}
+
+/*	private  void printLine(String line) {
+        try {
+            BufferedWriter out = null;
+            out = new BufferedWriter(new FileWriter("simulation.txt", true));
+            out.write(line, 0, line.length());
+            out.newLine();
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+	*/
 }
