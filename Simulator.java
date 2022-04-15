@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.*;
 public class Simulator {
 
 
@@ -10,21 +11,33 @@ public class Simulator {
 		}
 
 		BufferedReader in = null;
-		BufferedWriter out = null;
 		Integer numberOfSimulations;
+		File file = new File("simulation.txt");
 
 		try {
-			in = new BufferedReader(FileInputStream(args[0]));
-			out = new BufferedWriter(new FileOutputStream("simulation.txt")); 
+			file.createNewFile();;
+			in = new BufferedReader(new FileReader(args[0]));
 			String line;
 			line = in.readLine();
-			numberOfSimulations = parseInt(line);
+			numberOfSimulations = Integer.parseInt(line);
+			WeatherTower weatherTower = new WeatherTower();
+			LinkedList<Flyable> aircrafts = new LinkedList<Flyable>();
 			while ((line = in.readLine()) != null) {
 				String[] parts = line.split(" ");
-				AircraftFactory.newAircraft(parts[0], parts[1], parts[2].parseInt, parts[3].parseInt, parts[4].parseInt);
+				Flyable aircraft = AircraftFactory.newAircraft(parts[0], parts[1], Integer.parseInt(parts[2]), Integer.parseInt(parts[3]), Integer.parseInt(parts[4]));
+				if (aircraft == null) {
+					System.out.println("Error!");
+					return;
+				}
+				aircraft.registerTower(weatherTower);
+				aircrafts.add(aircraft);	
 			}
 			in.close();
-			out.close();
+
+			for (int i = 0; i < numberOfSimulations; i++) {
+				weatherTower.changeWeather();	
+			}
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (NumberFormatException e) {

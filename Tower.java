@@ -1,15 +1,44 @@
-public class Tower {
+import java.util.*;
+import java.io.*;
 
-	private Flyable observers;
+public abstract class Tower {
+
+	private LinkedList<Flyable> observers = new LinkedList<Flyable>();
 	
 	public void register(Flyable flyable) {
-
+		observers.add(flyable);	
+		String output = "Tower says: " + flyable.getType() + 
+			"#" + flyable.getName() + "(" + flyable.getId() + ")" +
+			"registered to weather tower.";
+		printLine(output);	
 	}
 	public void unregister(Flyable flyable) {
-
+		observers.remove(flyable);
+		String output = "Tower says: " + flyable.getType() + 
+			"#" + flyable.getName() + "(" + flyable.getId() + ")" +  
+			"unregistered from weather tower.";
+		printLine(output);
 	}
+
 	protected void conditionsChanged() {
-
+		for ( Flyable observer : observers ) {
+			observer.updateConditions();
+			String output = observer.getType() + 
+				"#" + observer.getName() + "(" + observer.getId() + "): ";
+			printLine(output);
+		}
 	}
-	
+
+	private void printLine(String line) {
+		try {
+			BufferedWriter out = null;
+			out = new BufferedWriter(new FileWriter("simulation.txt", true));
+
+			out.write(line, 0, line.length());
+			out.newLine();
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }
