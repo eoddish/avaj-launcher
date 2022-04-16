@@ -28,7 +28,7 @@ public abstract class Tower {
 			if (observer.getCoordinates().getHeight() == 0) {
 				String output = observer.getType() +
 					"#" + observer.getName() + "(" + observer.getId() + "): ";
-				printLine(output + "landing.");
+				printLine(output + "landing at the coordinates: longitude " + observer.getCoordinates().getLongitude() + " latitude " + observer.getCoordinates().getLatitude() + ".");
 				observer.getWeatherTower().unregister(observer);
 				iterator.remove();
 				
