@@ -1,2 +1,4 @@
 *.class
 simulation.txt
+.idea/
+*.iml

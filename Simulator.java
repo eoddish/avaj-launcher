@@ -38,7 +38,7 @@ public class Simulator {
 				}
 				Flyable aircraft = AircraftFactory.newAircraft(parts[0], parts[1], lng, lat, h);
 				if (aircraft == null) {
-					System.out.println("Error: Invaid input!");
+					System.out.println("Error: Invalid input!");
 					file.delete();
 					return;
 				}

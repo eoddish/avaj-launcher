@@ -5,7 +5,8 @@ public class WeatherProvider {
 
 	private WeatherProvider() {}
 	public static WeatherProvider getProvider() {
-		WeatherProvider weatherProvider = new WeatherProvider();
+		if (weatherProvider == null)
+			weatherProvider = new WeatherProvider();
 		return weatherProvider;
 	}
 	public String getCurrentWeather(Coordinates coordinates) {
