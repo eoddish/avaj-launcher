@@ -2,12 +2,23 @@ package app;
 
 import java.io.*;
 import java.util.*;
-public class Simulator {
 
+
+public class Simulator {
+	static class CoordinatesOutOfRangeException extends Exception {
+		CoordinatesOutOfRangeException(String text) {
+			super(text);
+		}
+	}
+	static class InvalidInputException extends Exception {
+		InvalidInputException(String text) {
+			super(text);
+		}
+	}
 
 	public static void main(String[] args) throws IOException {
-		
-		if (args.length != 1 ) {
+
+		if (args.length != 1) {
 			System.out.println("Wrong number of arguments!");
 			return;
 		}
@@ -21,7 +32,8 @@ public class Simulator {
 			file.delete();
 
 		try {
-			file.createNewFile();;
+			file.createNewFile();
+			;
 			in = new BufferedReader(new FileReader(args[0]));
 			String line;
 			line = in.readLine();
@@ -33,24 +45,18 @@ public class Simulator {
 				int lng = Integer.parseInt(parts[2]);
 				int lat = Integer.parseInt(parts[3]);
 				int h = Integer.parseInt(parts[4]);
-				if (lng < 0 || lat < 0 || h < 0 || h > 100) {
-					System.out.println("Error: app.Coordinates aren't in available range!");
-					file.delete();
-					return;
-				}
+				if (lng < 0 || lat < 0 || h < 0 || h > 100)
+					throw new CoordinatesOutOfRangeException("Coordinates aren't in available range!");
 				Flyable aircraft = AircraftFactory.newAircraft(parts[0], parts[1], lng, lat, h);
-				if (aircraft == null) {
-					System.out.println("Error: Invalid input!");
-					file.delete();
-					return;
-				}
+				if (aircraft == null)
+					throw new InvalidInputException("Invalid input!");
 				aircraft.registerTower(weatherTower);
-				aircrafts.add(aircraft);	
+				aircrafts.add(aircraft);
 			}
 			in.close();
 
 			for (int i = 0; i < numberOfSimulations; i++) {
-				weatherTower.changeWeather();	
+				weatherTower.changeWeather();
 			}
 
 		} catch (IOException e) {
@@ -60,7 +66,5 @@ public class Simulator {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 	}
 }
-
