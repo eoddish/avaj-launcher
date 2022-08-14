@@ -1,3 +1,5 @@
+package app;
+
 public interface Flyable {
 
 	public void updateConditions();

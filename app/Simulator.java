@@ -1,3 +1,5 @@
+package app;
+
 import java.io.*;
 import java.util.*;
 public class Simulator {
@@ -32,7 +34,7 @@ public class Simulator {
 				int lat = Integer.parseInt(parts[3]);
 				int h = Integer.parseInt(parts[4]);
 				if (lng < 0 || lat < 0 || h < 0 || h > 100) {
-					System.out.println("Error: Coordinates aren't in available range!");
+					System.out.println("Error: app.Coordinates aren't in available range!");
 					file.delete();
 					return;
 				}

@@ -1,3 +1,5 @@
+package app;
+
 import java.util.*;
 import java.io.*;
 
@@ -7,13 +9,13 @@ public abstract class Tower {
 	
 	public void register(Flyable flyable) {
 		observers.add(flyable);	
-		String output = "Tower says: " + flyable.getType() + 
+		String output = "Tower says: " + flyable.getType() +
 			"#" + flyable.getName() + "(" + flyable.getId() + ")" +
 			" registered to weather tower.";
 		printLine(output);	
 	}
 	public void unregister(Flyable flyable) {
-		String output = "Tower says: " + flyable.getType() + 
+		String output = "Tower says: " + flyable.getType() +
 			"#" + flyable.getName() + "(" + flyable.getId() + ")" +  
 			" unregistered from weather tower.";
 		printLine(output);

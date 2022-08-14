@@ -1,3 +1,5 @@
+package app;
+
 public class WeatherProvider {
 
 	private static WeatherProvider weatherProvider;

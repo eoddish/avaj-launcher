@@ -1,3 +1,5 @@
+package app;
+
 public class Coordinates {
 
 	private int longitude;

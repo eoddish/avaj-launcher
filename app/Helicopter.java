@@ -1,8 +1,10 @@
-public class JetPlane extends Aircraft implements Flyable {
+package app;
+
+public class Helicopter extends Aircraft implements Flyable {
 
 	private WeatherTower weatherTower;
 	
-	JetPlane(String name, Coordinates coordinates) {
+	Helicopter(String name, Coordinates coordinates) {
 		super(name, coordinates);
 	}
 	public void updateConditions() {
@@ -11,24 +13,24 @@ public class JetPlane extends Aircraft implements Flyable {
                 "#" + getName() + "(" + getId() + "): ";
 		switch (weather) {
 			case "SUN":
-				coordinates.setLatitude(coordinates.getLatitude() + 10);
+				coordinates.setLongitude(coordinates.getLongitude () + 10);
 				coordinates.setHeight(coordinates.getHeight() + 2);
-				Tower.printLine(output + "Too much sun. Better put on my sunglasses.");
+				Tower.printLine(output + "This is hot.");
 				break;
 			case "RAIN":
-				coordinates.setLatitude(coordinates.getLatitude() + 5);
+				coordinates.setLongitude(coordinates.getLongitude() + 5);
 				Tower.printLine(output + "It's raining. Better watch out for lightings.");
 				break;
 			case "FOG":
-				coordinates.setLatitude(coordinates.getLatitude() + 1);
-				Tower.printLine(output + "OMG! That's quite a fog!");
+				coordinates.setLongitude(coordinates.getLongitude () + 1);
+				Tower.printLine(output + "It's foggy. I can't see a thing!");
 				break;
 			case "SNOW":
-				coordinates.setHeight(coordinates.getHeight() - 7);
-				Tower.printLine(output + "OMG! Winter is coming!");
+				coordinates.setHeight(coordinates.getHeight() - 12);
+				Tower.printLine(output + "My rotor is going to freeze!");
 				break;
 		}
-				
+		
 	}
 	public void registerTower(WeatherTower weatherTower) {
 		this.weatherTower = weatherTower;
@@ -39,12 +41,13 @@ public class JetPlane extends Aircraft implements Flyable {
 		return name;
 	}
 	public String getType() {
-		return "JetPlane";
+		return "Helicopter";
 	}
 	public long getId() {
 		return id;
 	}
 	public WeatherTower getWeatherTower() {
-        return weatherTower;
-    }
+		return weatherTower;
+	}
+
 }
